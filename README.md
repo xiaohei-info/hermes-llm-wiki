@@ -26,6 +26,42 @@ Most note systems accumulate clippings, drafts, and temporary analysis, but they
 - **No verification, not complete.** A valid ingest includes canonical placement, navigation updates, and readback checks.
 - **Maintenance matters.** Linting for duplicates, orphans, stale pages, and backlog is part of the system.
 
+## Origin: Karpathy's LLM Wiki
+
+This repository is directly inspired by Andrej Karpathy's original **LLM Wiki** gist:
+
+- Original gist: <https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>
+- Raw gist: <https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw>
+
+Karpathy's core pattern is simple and powerful:
+- keep immutable raw sources
+- let the LLM maintain a persistent wiki
+- use an explicit schema/rules layer to keep the maintainer disciplined
+- treat ingest, query, and lint as ongoing operations instead of one-off chat behavior
+
+`hermes-llm-wiki` is not a mirror of that gist. It is a concrete operationalization of the same idea for a Hermes-style agent + Obsidian workflow.
+
+## From original idea to Hermes workflow
+
+The distinctive part of this repo is the translation layer from the original LLM Wiki concept into an executable operating model:
+
+- **Raw source space -> `Inbox/`** for low-friction intake, drafts, clips, and unstructured notes
+- **Persistent wiki -> `_wiki/`** for compiled, canonical, navigable knowledge
+- **Schema -> skills + docs + templates** so the agent behaves like a disciplined maintainer rather than a generic chatbot
+- **Ingest/query/lint -> explicit workflows** with clear expectations for provenance, navigation, maintenance, and writeback
+- **“Good answers should compound” -> selective writeback** into `questions/` and `syntheses/` instead of losing valuable analysis in chat history
+
+This Hermes translation also makes a few strong choices that are part of the repo's identity:
+
+- wiki-first query posture
+- `index.md` and `log.md` as mandatory operational surfaces
+- explicit human/Hermes responsibility split
+- source-first ingest before abstraction
+- structure before automation
+- audit-only lint by default
+
+For the deeper design rationale, see [docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md).
+
 ## What this package includes
 
 ### Methodology

@@ -24,6 +24,42 @@
 - **没有验证，就不算完成。** 合格 ingest 必须有 canonical placement、导航更新和回读验证。
 - **维护本身就是系统的一部分。** duplicate / orphan / stale / backlog 巡检不能缺位。
 
+## 原始来源：Karpathy 的 LLM Wiki
+
+这个仓库直接参考了 Andrej Karpathy 的原始 **LLM Wiki** gist：
+
+- 原文链接：<https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f>
+- Raw 链接：<https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw>
+
+Karpathy 原始思路的核心是：
+- 保留不可变的 raw sources
+- 让 LLM 维护一个持久存在的 wiki
+- 用显式 schema / rules 层约束维护行为
+- 把 ingest、query、lint 视为持续运行的知识工作流，而不是一次性聊天动作
+
+`hermes-llm-wiki` 并不是对那份 gist 的简单转写，而是把它进一步落成适合 Hermes + Obsidian 的可执行工作模型。
+
+## 从原始概念到 Hermes 落地
+
+这个仓库真正有特色的部分，是把原始 LLM Wiki 概念翻译成一套 Hermes 可执行的 operating model：
+
+- **Raw source space -> `Inbox/`**：低摩擦接收剪藏、草稿、问题、临时分析
+- **Persistent wiki -> `_wiki/`**：只承载编译后的 canonical knowledge
+- **Schema -> skills + docs + templates**：让 agent 更像 disciplined maintainer，而不是泛化聊天机器人
+- **Ingest / query / lint -> 明确工作流**：把来源、导航、维护、回写都变成显式动作
+- **“好答案应当复利” -> selective writeback**：把高价值问答沉淀进 `questions/` / `syntheses/`，而不是丢在聊天记录里
+
+这套 Hermes 落地还额外做了几个很强的选择，这些也是本仓库的特色：
+
+- wiki-first query posture
+- 把 `index.md` / `log.md` 作为强约束的运行面
+- 明确 human / Hermes 分工
+- 先 source-first ingest，再决定是否抽象
+- 先有结构，再上自动化
+- lint 默认 audit-only，不静默改写 `_wiki/`
+
+更完整的设计说明见：[docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md)
+
 ## 仓库包含什么
 
 ### 方法论
