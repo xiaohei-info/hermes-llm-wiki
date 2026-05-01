@@ -15,6 +15,23 @@
 - 把 agent 当作编译器 / 编辑器 / curator
 - 强调 selective writeback，而不是自动膨胀
 
+## 系统示意图
+
+```mermaid
+flowchart LR
+    A[Raw sources\n文章 / 剪藏 / 草稿 / 笔记] --> B[Inbox/\n低摩擦输入层]
+    B --> C[Ingest\n读取 / 提取 / 判断 / 更新]
+    C --> D[_wiki/sources/\n单源编译页]
+    D --> E[_wiki/\nconcepts / entities / questions / syntheses / comparisons]
+    E --> F[index.md + log.md\n导航 + 时间记录]
+    F --> G[Wiki-first query\n优先从编译层回答]
+    G --> H[Selective writeback\n让高价值答案复利]
+    E --> I[Lint\n重复 / 孤儿 / 过时 / backlog]
+    I --> E
+```
+
+这张图表示的不是一次性流程，而是一个持续循环：原始材料低成本进入，编译知识层逐步变强，后续回答也因此越来越好。
+
 ## 核心理念
 
 - **原始材料不等于编译知识。** `Inbox/` 与 `_wiki/` 职责必须分离。
@@ -39,6 +56,33 @@ Karpathy 原始思路的核心是：
 
 `hermes-llm-wiki` 并不是对那份 gist 的简单转写，而是把它进一步落成适合 Hermes + Obsidian 的可执行工作模型。
 
+## 为什么不直接做 RAG？
+
+标准 RAG 在“对一堆原始资料做查询时检索”这个场景里当然有价值。
+
+但这个仓库追求的是另一件事：**把重复阅读、整理、综合、维护，逐步变成一个可持续复用的 compiled knowledge layer。**
+
+### 纯 RAG 擅长什么
+- 在提问时检索相关片段
+- 面向不断变化的 source corpus 给出回答
+- 降低人工翻文件、翻笔记的成本
+
+### 纯 RAG 通常不保证什么
+- 稳定的 concept / entity canonical pages
+- 会随着时间持续变好的交叉链接
+- 像 `index.md` 这样的显式导航层
+- 像 `log.md` 这样的 append-only 编译历史
+- 高价值答案的 selective writeback
+- 针对 duplicate / orphan / stale page 的周期性知识维护
+
+### worldview 的差别
+
+RAG 的思路更像：*每次需要答案时，再去 source corpus 里检索。*
+
+这个仓库的思路更像：*先把 source corpus 持续编译进一个被维护的 wiki，让未来的问题从更好的知识工件出发。*
+
+所以 `hermes-llm-wiki` 把 wiki 视为一个会复利增长的知识资产，而不只是一个 retrieval cache。
+
 ## 从原始概念到 Hermes 落地
 
 这个仓库真正有特色的部分，是把原始 LLM Wiki 概念翻译成一套 Hermes 可执行的 operating model：
@@ -58,7 +102,7 @@ Karpathy 原始思路的核心是：
 - 先有结构，再上自动化
 - lint 默认 audit-only，不静默改写 `_wiki/`
 
-更完整的设计说明见：[docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md)
+更完整的设计说明见：[docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md)。中文镜像见：[docs/from-llm-wiki-to-hermes.zh-CN.md](docs/from-llm-wiki-to-hermes.zh-CN.md)
 
 ## 仓库包含什么
 

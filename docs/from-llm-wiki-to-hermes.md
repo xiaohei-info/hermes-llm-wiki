@@ -1,5 +1,7 @@
 # From Karpathy's LLM Wiki to a Hermes Workflow
 
+Chinese mirror: [from-llm-wiki-to-hermes.zh-CN.md](from-llm-wiki-to-hermes.zh-CN.md)
+
 This document explains the distinctive translation layer in `hermes-llm-wiki`:
 
 - the original idea comes from Andrej Karpathy's **LLM Wiki** gist

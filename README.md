@@ -17,6 +17,23 @@ Most note systems accumulate clippings, drafts, and temporary analysis, but they
 - treat the agent as a curator/editor, not a chatty summarizer
 - prefer selective, traceable writeback over automatic wiki sprawl
 
+## System map
+
+```mermaid
+flowchart LR
+    A[Raw sources\narticles / clips / drafts / notes] --> B[Inbox/\nlow-friction intake]
+    B --> C[Ingest\nread / extract / decide / update]
+    C --> D[_wiki/sources/\ncanonical source pages]
+    D --> E[_wiki/\nconcepts / entities / questions / syntheses / comparisons]
+    E --> F[index.md + log.md\nnavigation + chronology]
+    F --> G[Wiki-first query\nanswer from compiled knowledge]
+    G --> H[Selective writeback\ncompound durable answers]
+    E --> I[Lint\nduplicates / orphans / stale / backlog]
+    I --> E
+```
+
+This is the intended operating loop: raw material enters cheaply, compiled knowledge becomes more structured over time, and future answers get better because the wiki itself improves.
+
 ## Core operating ideas
 
 - **Raw notes are not compiled knowledge.** `Inbox/` and `_wiki/` serve different roles.
@@ -41,6 +58,33 @@ Karpathy's core pattern is simple and powerful:
 
 `hermes-llm-wiki` is not a mirror of that gist. It is a concrete operationalization of the same idea for a Hermes-style agent + Obsidian workflow.
 
+## Why not just RAG?
+
+Standard RAG is useful when you mainly want better query-time retrieval over a pile of source material.
+
+This repository is for a different goal: **turning repeated reading, synthesis, and maintenance into a durable compiled knowledge layer**.
+
+### What plain RAG is good at
+- retrieving relevant chunks at question time
+- answering against a changing pile of source material
+- reducing the need for manual search across notes and files
+
+### What plain RAG usually does not guarantee
+- canonical concept/entity pages
+- persistent cross-links that improve over time
+- explicit navigation surfaces like `index.md`
+- append-only operational chronology like `log.md`
+- selective writeback of high-value answers
+- routine structural maintenance for duplicates, orphans, and stale pages
+
+### The worldview difference
+
+RAG says: *retrieve from the source corpus each time you need an answer.*
+
+This repo says: *compile the source corpus into a maintained wiki so future answers start from a better artifact.*
+
+That is why `hermes-llm-wiki` treats the wiki as a compounding asset, not just a retrieval cache.
+
 ## From original idea to Hermes workflow
 
 The distinctive part of this repo is the translation layer from the original LLM Wiki concept into an executable operating model:
@@ -60,7 +104,7 @@ This Hermes translation also makes a few strong choices that are part of the rep
 - structure before automation
 - audit-only lint by default
 
-For the deeper design rationale, see [docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md).
+For the deeper design rationale, see [docs/from-llm-wiki-to-hermes.md](docs/from-llm-wiki-to-hermes.md). A Chinese mirror is available at [docs/from-llm-wiki-to-hermes.zh-CN.md](docs/from-llm-wiki-to-hermes.zh-CN.md).
 
 ## What this package includes
 
