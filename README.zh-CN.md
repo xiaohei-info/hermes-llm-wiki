@@ -46,6 +46,16 @@
 - Hermes 集成说明
 - generic agent 集成说明
 
+## 宿主要求
+
+这套方法默认宿主至少具备这些能力：
+
+- 读写 Markdown 文件
+- 挂载可复用 instruction / skill surface
+- 可选地调度周期性 prompt
+
+如果宿主做不到这些，也仍然可以借用这套方法论，但需要更多手工适配。
+
 ## 它不是什么
 
 它**不是**：
@@ -64,7 +74,13 @@
 1. 选择根目录：
    - `INBOX_ROOT`（默认 `Inbox/`）
    - `WIKI_ROOT`（默认 `_wiki/`）
-2. 用 `templates/_wiki/` 初始化 `_wiki/` 骨架。
+2. 用 `templates/_wiki/` 初始化 `_wiki/` 骨架，并包含这些空的 canonical 子目录：
+   - `sources/`
+   - `concepts/`
+   - `entities/`
+   - `questions/`
+   - `syntheses/`
+   - `comparisons/`
 3. 将 `skills/` 下的 3 个 skill 接入你的 agent host。
 4. 手动 ingest 一篇真实 source note。
 5. 验证：
@@ -72,6 +88,8 @@
    - `index.md` 有新的导航项
    - `log.md` 有时间记录
 6. 只有当手动流程稳定后，再开启 audit-only lint 或 triage cron。
+
+如果想看一条具体的 first-run 路径，可以从 [examples/README.md](examples/README.md) 开始。
 
 ## 采纳层级
 

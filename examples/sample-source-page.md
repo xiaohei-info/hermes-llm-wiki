@@ -2,6 +2,7 @@
 type: source
 source_path: Inbox/example-raw-note.md
 source_title: Example raw note
+source_canonical: https://example.com/compiled-wiki-workflow
 ingested_on: 2026-05-01
 created: 2026-05-01
 updated: 2026-05-01

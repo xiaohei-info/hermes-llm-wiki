@@ -1,5 +1,7 @@
 # hermes-llm-wiki
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 A methodology and skill kit for maintaining a source-grounded, compiled LLM wiki in Obsidian.
 
 ## Why this exists
@@ -36,6 +38,8 @@ Most note systems accumulate clippings, drafts, and temporary analysis, but they
 - `obsidian-inbox-to-wiki-ingest` — execution skill for `Inbox/ -> _wiki/`
 - `obsidian-wiki-lint-triage` — audit/maintenance skill for `_wiki/`
 
+The methodology skill keeps the `karpathy-llm-wiki` label because it packages the Karpathy-style compiled-wiki workflow that inspired this operating model.
+
 ### Templates
 - `_wiki` skeleton files
 - page-type templates
@@ -45,6 +49,16 @@ Most note systems accumulate clippings, drafts, and temporary analysis, but they
 - host-neutral implementation guide
 - Hermes integration notes
 - generic-agent integration notes
+
+## Host requirements
+
+This package assumes a host that can do at least these things:
+
+- read and write Markdown files
+- keep reusable instruction/skill surfaces
+- optionally run recurring prompts on a schedule
+
+If your host cannot do those things, you can still borrow the methodology, but you will need to adapt the workflow manually.
 
 ## What this is not
 
@@ -64,7 +78,13 @@ The value is the operating model and reusable skill surfaces, not a heavy runtim
 1. Choose your roots:
    - `INBOX_ROOT` (default: `Inbox/`)
    - `WIKI_ROOT` (default: `_wiki/`)
-2. Create the `_wiki/` skeleton from `templates/_wiki/`.
+2. Create the `_wiki/` skeleton from `templates/_wiki/`, including the empty canonical subdirectories:
+   - `sources/`
+   - `concepts/`
+   - `entities/`
+   - `questions/`
+   - `syntheses/`
+   - `comparisons/`
 3. Load the three skills from `skills/` into your host agent.
 4. Ingest one real source note manually.
 5. Verify that:
@@ -72,6 +92,8 @@ The value is the operating model and reusable skill surfaces, not a heavy runtim
    - `index.md` gained a curated entry
    - `log.md` records the event
 6. Only then add audit-only lint or triage cron prompts.
+
+If you want a concrete first-run path, start with [examples/README.md](examples/README.md).
 
 ## Adoption profiles
 

@@ -8,7 +8,7 @@ This package intentionally avoids hard-coding local machine paths. Use configura
 vault_root: /path/to/vault
 inbox_root: Inbox/
 wiki_root: _wiki/
-design_notes_root: Inbox/hermes/default/   # optional
+design_notes_root: null                    # optional dedicated area for methodology/design notes
 compiled_output_language: en               # or zh-CN
 compiled_filename_language: en             # or zh-CN
 preserve_original_source_title: true
@@ -22,7 +22,7 @@ legacy_wiki_root: Wiki/                    # optional
 - `vault_root` — absolute root of the Obsidian vault
 - `inbox_root` — raw/source area
 - `wiki_root` — compiled knowledge root
-- `design_notes_root` — optional place for methodology/design notes
+- `design_notes_root` — optional dedicated place for methodology/design notes
 - `compiled_output_language` — language used in compiled page prose
 - `compiled_filename_language` — language used in visible compiled filenames
 - `preserve_original_source_title` — whether to keep original source title in metadata
@@ -43,3 +43,12 @@ Defaults should not assume:
 - a specific machine path
 - a specific scheduler
 - a specific hosted provider or model
+
+## Design notes root guidance
+
+`design_notes_root` is optional. Some adopters want a dedicated area for methodology notes; others keep such notes alongside ordinary source material.
+
+Good examples:
+- `notes/design/`
+- `Inbox/design/`
+- `null` if you do not want a dedicated design-note area
